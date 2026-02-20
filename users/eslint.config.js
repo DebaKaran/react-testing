@@ -6,6 +6,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
+  // Main React App Config
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -24,6 +25,19 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+    },
+  },
+   // 🧪 Test Files Config (Vitest)
+  {
+    files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}'],
+    plugins: {
+      vitest,
+    },
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...vitest.environments.globals.globals,
+      },
     },
   },
 ])
